@@ -1,0 +1,73 @@
+﻿@model IEnumerable<P08R01MVC_Plagas_MDRE.Models.Plaga>
+@{
+    ViewBag.Title = "Catálogo de Plagas";
+}
+
+<style>
+    .plaga-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 30px;
+        animation: fadeIn 0.6s ease-out;
+        background-color: #fff;
+        border: 1px solid #e7e7e7;
+    }
+    .plaga-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+    }
+    .card-img-top {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+    }
+    .card-body {
+        padding: 20px;
+    }
+    @@keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .action-btn {
+        margin: 0 2px;
+    }
+</style>
+
+<div class="container mt-4">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+        <h2 style="margin: 0;">Catálogo de Plagas</h2>
+        <a href="@Url.Action("Create")" class="btn btn-success">
+            <i class="glyphicon glyphicon-plus"></i> Registrar Nueva Plaga
+        </a>
+    </div>
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 col-sm-6">
+                <div class="plaga-card">
+                    <img src="@item.UrlImage" class="card-img-top" alt="@item.NombreComun">
+
+                    <div class="card-body text-center">
+                        <h3 class="text-primary" style="margin-top: 0;"><strong>@Html.DisplayFor(modelItem => item.NombreComun)</strong></h3>
+                        <h5 class="text-muted" style="margin-bottom: 15px;"><em>@Html.DisplayFor(modelItem => item.NombreCientifico)</em></h5>
+
+                        <hr />
+
+                        <div style="margin-bottom: 20px;">
+                            <span class="label label-info" style="font-size: 90%;">@Html.DisplayFor(modelItem => item.Categoria)</span>
+                            <span class="label label-warning" style="font-size: 90%;">Riesgo: @Html.DisplayFor(modelItem => item.NivelRiesgo)</span>
+                        </div>
+
+                        <div>
+                            <a href="@Url.Action("Details", new { id=item.IdPlaga })" class="btn btn-info btn-sm action-btn">Detalles</a>
+                            <a href="@Url.Action("Edit", new { id=item.IdPlaga })" class="btn btn-warning btn-sm action-btn">Editar</a>
+                            <a href="@Url.Action("Delete", new { id=item.IdPlaga })" class="btn btn-danger btn-sm action-btn">Eliminar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

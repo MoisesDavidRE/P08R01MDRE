@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "Inicio";
+}
+
+<div class="text-center mb-5">
+    <h1 class="display-4 fw-bold text-success">Sistema de Control</h1>
+    <p class="lead text-muted">Gestión de plagas, medidas preventivas y registro de tratamientos.</p>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0">
+            <div class="card-body text-center">
+                <h2 class="h4 card-title text-success">Plagas</h2>
+                <p class="card-text text-muted">Consulta y administra el catálogo de plagas registradas en el sistema.</p>
+                @Html.ActionLink("Gestionar Plagas", "Index", "Plagas", new { area = "" }, new { @class = "btn btn-outline-success w-100" })
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0">
+            <div class="card-body text-center">
+                <h2 class="h4 card-title text-success">Prevenciones</h2>
+                <p class="card-text text-muted">Revisa las medidas para evitar la aparición y propagación de plagas.</p>
+                @Html.ActionLink("Gestionar Prevenciones", "Index", "Prevencions", new { area = "" }, new { @class = "btn btn-outline-success w-100" })
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0">
+            <div class="card-body text-center">
+                <h2 class="h4 card-title text-success">Tratamientos</h2>
+                <p class="card-text text-muted">Administra los tratamientos disponibles para combatir las infecciones.</p>
+                @Html.ActionLink("Gestionar Tratamientos", "Index", "Tratamientoes", new { area = "" }, new { @class = "btn btn-outline-success w-100" })
+            </div>
+        </div>
+    </div>
+</div>

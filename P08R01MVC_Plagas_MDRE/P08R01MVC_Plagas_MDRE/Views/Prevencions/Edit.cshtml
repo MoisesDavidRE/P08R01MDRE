@@ -1,0 +1,94 @@
+﻿@model P08R01MVC_Plagas_MDRE.Models.Prevencion
+@{
+    ViewBag.Title = "Editar Prevención";
+}
+
+<style>
+    .form-wrapper {
+        animation: slideUp 0.5s ease-out;
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 30px 40px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        margin-top: 30px;
+        border: 1px solid #f0f0f0;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    @@keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .form-title {
+        color: #2c3e50;
+        font-weight: bold;
+        margin-bottom: 25px;
+        text-align: center;
+    }
+</style>
+
+<div class="container">
+    <div class="form-wrapper">
+        <h2 class="form-title">Editar Información de Prevención</h2>
+        <hr />
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.IdPrevencion)
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IdPlaga, "Plaga", htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.DropDownList("IdPlaga", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.IdPlaga, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Titulo, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control", rows = "4" } })
+                        @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 35px;">
+                    <div class="col-md-offset-3 col-md-9">
+                        <button type="submit" class="btn btn-warning btn-lg">
+                            <i class="glyphicon glyphicon-refresh"></i> Actualizar
+                        </button>
+                        <a href="@Url.Action("Index")" class="btn btn-default btn-lg" style="margin-left: 10px;">
+                            Cancelar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

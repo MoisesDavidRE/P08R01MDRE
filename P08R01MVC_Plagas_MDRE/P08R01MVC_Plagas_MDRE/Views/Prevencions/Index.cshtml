@@ -1,0 +1,80 @@
+﻿@model IEnumerable<P08R01MVC_Plagas_MDRE.Models.Prevencion>
+@{
+    ViewBag.Title = "Catálogo de Prevenciones";
+}
+
+<style>
+    .prevencion-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 30px;
+        animation: fadeIn 0.6s ease-out;
+        background-color: #fff;
+        border: 1px solid #e7e7e7;
+        border-left: 5px solid #5cb85c;
+    }
+
+        .prevencion-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+        }
+
+    .card-body {
+        padding: 25px;
+    }
+
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .action-btn {
+        margin: 0 2px;
+    }
+</style>
+
+<div class="container mt-4">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+        <h2 style="margin: 0;">Medidas de Prevención</h2>
+        <a href="@Url.Action("Create")" class="btn btn-success">
+            <i class="glyphicon glyphicon-plus"></i> Registrar Prevención
+        </a>
+    </div>
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 col-sm-6">
+                <div class="prevencion-card">
+                    <div class="card-body text-center">
+                        <span class="label label-success" style="font-size: 90%; margin-bottom: 15px; display: inline-block;">
+                            Plaga: @Html.DisplayFor(modelItem => item.Plaga.NombreComun)
+                        </span>
+
+                        <h3 class="text-primary" style="margin-top: 5px;"><strong>@Html.DisplayFor(modelItem => item.Titulo)</strong></h3>
+
+                        <p class="text-muted" style="margin-bottom: 20px; height: 60px; overflow: hidden; text-overflow: ellipsis;">
+                            @Html.DisplayFor(modelItem => item.Descripcion)
+                        </p>
+
+                        <hr />
+
+                        <div>
+                            <a href="@Url.Action("Details", new { id=item.IdPrevencion })" class="btn btn-info btn-sm action-btn">Detalles</a>
+                            <a href="@Url.Action("Edit", new { id=item.IdPrevencion })" class="btn btn-warning btn-sm action-btn">Editar</a>
+                            <a href="@Url.Action("Delete", new { id=item.IdPrevencion })" class="btn btn-danger btn-sm action-btn">Eliminar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

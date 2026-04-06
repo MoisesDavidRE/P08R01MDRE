@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Sistema de Control de plagas</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-success shadow-sm mb-4">
+        <div class="container">
+            @Html.ActionLink("Sistema de Control", "Index", "Plagas", new { area = "" }, new { @class = "navbar-brand fw-bold" })
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-end">
+                <ul class="navbar-nav">
+                    <li class="nav-item">@Html.ActionLink("Plagas", "Index", "Plagas", new { area = "" }, new { @class = "nav-link px-3" })</li>
+                    <li class="nav-item">@Html.ActionLink("Prevenciones", "Index", "Prevencions", new { area = "" }, new { @class = "nav-link px-3" })</li>
+                    <li class="nav-item">@Html.ActionLink("Tratamientos", "Index", "Tratamientoes", new { area = "" }, new { @class = "nav-link px-3" })</li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container body-content bg-white p-4 rounded shadow-sm">
+        @RenderBody()
+    </main>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ControlPlagasDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Plagas">
+          <Key>
+            <PropertyRef Name="IdPlaga" />
+          </Key>
+          <Property Name="IdPlaga" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreComun" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="NombreCientifico" Type="varchar" MaxLength="150" />
+          <Property Name="Categoria" Type="varchar" MaxLength="50" />
+          <Property Name="NivelRiesgo" Type="varchar" MaxLength="50" />
+          <Property Name="UrlImage" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Prevencion">
+          <Key>
+            <PropertyRef Name="IdPrevencion" />
+          </Key>
+          <Property Name="IdPrevencion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdPlaga" Type="int" />
+          <Property Name="Titulo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Descripcion" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tratamientos">
+          <Key>
+            <PropertyRef Name="IdTratamiento" />
+          </Key>
+          <Property Name="IdTratamiento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdPlaga" Type="int" />
+          <Property Name="Tipo" Type="varchar" MaxLength="50" />
+          <Property Name="NombreProducto" Type="varchar" MaxLength="100" />
+          <Property Name="Instrucciones" Type="text" />
+        </EntityType>
+        <Association Name="FK__Prevencio__IdPla__4CA06362">
+          <End Role="Plagas" Type="Self.Plagas" Multiplicity="0..1" />
+          <End Role="Prevencion" Type="Self.Prevencion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Plagas">
+              <PropertyRef Name="IdPlaga" />
+            </Principal>
+            <Dependent Role="Prevencion">
+              <PropertyRef Name="IdPlaga" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tratamien__IdPla__4F7CD00D">
+          <End Role="Plagas" Type="Self.Plagas" Multiplicity="0..1" />
+          <End Role="Tratamientos" Type="Self.Tratamientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Plagas">
+              <PropertyRef Name="IdPlaga" />
+            </Principal>
+            <Dependent Role="Tratamientos">
+              <PropertyRef Name="IdPlaga" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ControlPlagasDBModelStoreContainer">
+          <EntitySet Name="Plagas" EntityType="Self.Plagas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Prevencion" EntityType="Self.Prevencion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tratamientos" EntityType="Self.Tratamientos" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Prevencio__IdPla__4CA06362" Association="Self.FK__Prevencio__IdPla__4CA06362">
+            <End Role="Plagas" EntitySet="Plagas" />
+            <End Role="Prevencion" EntitySet="Prevencion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tratamien__IdPla__4F7CD00D" Association="Self.FK__Tratamien__IdPla__4F7CD00D">
+            <End Role="Plagas" EntitySet="Plagas" />
+            <End Role="Tratamientos" EntitySet="Tratamientos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ControlPlagasDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Plaga">
+          <Key>
+            <PropertyRef Name="IdPlaga" />
+          </Key>
+          <Property Name="IdPlaga" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreComun" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NombreCientifico" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Categoria" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NivelRiesgo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UrlImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Prevencions" Relationship="Self.FK__Prevencio__IdPla__4CA06362" FromRole="Plagas" ToRole="Prevencion" />
+          <NavigationProperty Name="Tratamientos" Relationship="Self.FK__Tratamien__IdPla__4F7CD00D" FromRole="Plagas" ToRole="Tratamientos" />
+        </EntityType>
+        <EntityType Name="Prevencion">
+          <Key>
+            <PropertyRef Name="IdPrevencion" />
+          </Key>
+          <Property Name="IdPrevencion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdPlaga" Type="Int32" />
+          <Property Name="Titulo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Plaga" Relationship="Self.FK__Prevencio__IdPla__4CA06362" FromRole="Prevencion" ToRole="Plagas" />
+        </EntityType>
+        <EntityType Name="Tratamiento">
+          <Key>
+            <PropertyRef Name="IdTratamiento" />
+          </Key>
+          <Property Name="IdTratamiento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdPlaga" Type="Int32" />
+          <Property Name="Tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NombreProducto" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Instrucciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Plaga" Relationship="Self.FK__Tratamien__IdPla__4F7CD00D" FromRole="Tratamientos" ToRole="Plagas" />
+        </EntityType>
+        <Association Name="FK__Prevencio__IdPla__4CA06362">
+          <End Role="Plagas" Type="Self.Plaga" Multiplicity="0..1" />
+          <End Role="Prevencion" Type="Self.Prevencion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Plagas">
+              <PropertyRef Name="IdPlaga" />
+            </Principal>
+            <Dependent Role="Prevencion">
+              <PropertyRef Name="IdPlaga" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tratamien__IdPla__4F7CD00D">
+          <End Role="Plagas" Type="Self.Plaga" Multiplicity="0..1" />
+          <End Role="Tratamientos" Type="Self.Tratamiento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Plagas">
+              <PropertyRef Name="IdPlaga" />
+            </Principal>
+            <Dependent Role="Tratamientos">
+              <PropertyRef Name="IdPlaga" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ControlPlagasDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Plagas" EntityType="Self.Plaga" />
+          <EntitySet Name="Prevencions" EntityType="Self.Prevencion" />
+          <EntitySet Name="Tratamientos" EntityType="Self.Tratamiento" />
+          <AssociationSet Name="FK__Prevencio__IdPla__4CA06362" Association="Self.FK__Prevencio__IdPla__4CA06362">
+            <End Role="Plagas" EntitySet="Plagas" />
+            <End Role="Prevencion" EntitySet="Prevencions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tratamien__IdPla__4F7CD00D" Association="Self.FK__Tratamien__IdPla__4F7CD00D">
+            <End Role="Plagas" EntitySet="Plagas" />
+            <End Role="Tratamientos" EntitySet="Tratamientos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ControlPlagasDBModelStoreContainer" CdmEntityContainer="ControlPlagasDBEntities">
+          <EntitySetMapping Name="Plagas">
+            <EntityTypeMapping TypeName="ControlPlagasDBModel.Plaga">
+              <MappingFragment StoreEntitySet="Plagas">
+                <ScalarProperty Name="IdPlaga" ColumnName="IdPlaga" />
+                <ScalarProperty Name="NombreComun" ColumnName="NombreComun" />
+                <ScalarProperty Name="NombreCientifico" ColumnName="NombreCientifico" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="NivelRiesgo" ColumnName="NivelRiesgo" />
+                <ScalarProperty Name="UrlImage" ColumnName="UrlImage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Prevencions">
+            <EntityTypeMapping TypeName="ControlPlagasDBModel.Prevencion">
+              <MappingFragment StoreEntitySet="Prevencion">
+                <ScalarProperty Name="IdPrevencion" ColumnName="IdPrevencion" />
+                <ScalarProperty Name="IdPlaga" ColumnName="IdPlaga" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tratamientos">
+            <EntityTypeMapping TypeName="ControlPlagasDBModel.Tratamiento">
+              <MappingFragment StoreEntitySet="Tratamientos">
+                <ScalarProperty Name="IdTratamiento" ColumnName="IdTratamiento" />
+                <ScalarProperty Name="IdPlaga" ColumnName="IdPlaga" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="NombreProducto" ColumnName="NombreProducto" />
+                <ScalarProperty Name="Instrucciones" ColumnName="Instrucciones" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

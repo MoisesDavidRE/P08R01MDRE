@@ -10,6 +10,7 @@
         <EntityTypeShape EntityType="ControlPlagasDBModel.Tratamiento" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
         <AssociationConnector Association="ControlPlagasDBModel.FK__Prevencio__IdPla__4CA06362" ManuallyRouted="false" />
         <AssociationConnector Association="ControlPlagasDBModel.FK__Tratamien__IdPla__4F7CD00D" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ControlPlagasDBModel.sysdiagram" Width="1.5" PointX="5.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

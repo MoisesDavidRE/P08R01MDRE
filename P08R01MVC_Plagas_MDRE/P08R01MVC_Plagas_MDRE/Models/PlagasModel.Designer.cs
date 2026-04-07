@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Moise\Desktop\P08R01MVC_Plagas_MDRE\P08R01MVC_Plagas_MDRE\P08R01MVC_Plagas_MDRE\Models\PlagasModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Moise\Desktop\P08R01MDRE\P08R01MVC_Plagas_MDRE\P08R01MVC_Plagas_MDRE\Models\PlagasModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

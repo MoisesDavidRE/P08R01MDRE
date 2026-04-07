@@ -18,7 +18,8 @@ BEGIN TRY
     NombreCientifico VARCHAR(150),
     Categoria VARCHAR(50),
     NivelRiesgo VARCHAR(50),
-    UrlImage VARCHAR(MAX) NULL
+    UrlImage VARCHAR(MAX) NULL,
+    Enfermedades TEXT NULL
 )
     END
     ELSE

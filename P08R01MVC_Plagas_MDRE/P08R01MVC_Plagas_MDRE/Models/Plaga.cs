@@ -27,6 +27,7 @@ namespace P08R01MVC_Plagas_MDRE.Models
         public string Categoria { get; set; }
         public string NivelRiesgo { get; set; }
         public string UrlImage { get; set; }
+        public string Enfermedades { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Prevencion> Prevencions { get; set; }

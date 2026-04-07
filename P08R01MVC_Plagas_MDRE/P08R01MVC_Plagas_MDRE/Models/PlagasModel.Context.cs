@@ -28,5 +28,6 @@ namespace P08R01MVC_Plagas_MDRE.Models
         public virtual DbSet<Plaga> Plagas { get; set; }
         public virtual DbSet<Prevencion> Prevencions { get; set; }
         public virtual DbSet<Tratamiento> Tratamientos { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }

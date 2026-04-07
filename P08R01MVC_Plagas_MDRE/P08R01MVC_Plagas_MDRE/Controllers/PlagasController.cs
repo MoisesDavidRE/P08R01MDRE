@@ -1,12 +1,13 @@
-﻿using System;
+﻿using P08R01MVC_Plagas_MDRE.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using P08R01MVC_Plagas_MDRE.Models;
 
 namespace P08R01MVC_Plagas_MDRE.Controllers
 {
@@ -46,7 +47,7 @@ namespace P08R01MVC_Plagas_MDRE.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdPlaga,NombreComun,NombreCientifico,Categoria,NivelRiesgo,UrlImage")] Plaga plaga)
+        public ActionResult Create([Bind(Include = "IdPlaga,NombreComun,NombreCientifico,Categoria,NivelRiesgo,UrlImage,Enfermedades")] Plaga plaga)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +79,7 @@ namespace P08R01MVC_Plagas_MDRE.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdPlaga,NombreComun,NombreCientifico,Categoria,NivelRiesgo,UrlImage")] Plaga plaga)
+        public ActionResult Edit([Bind(Include = "IdPlaga,NombreComun,NombreCientifico,Categoria,NivelRiesgo,UrlImage,Enfermedades")] Plaga plaga)
         {
             if (ModelState.IsValid)
             {
@@ -104,15 +105,23 @@ namespace P08R01MVC_Plagas_MDRE.Controllers
             return View(plaga);
         }
 
-        // POST: Plagas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Plaga plaga = db.Plagas.Find(id);
-            db.Plagas.Remove(plaga);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+
+            try
+            {
+                db.Plagas.Remove(plaga);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (DbUpdateException)
+            {
+                ViewBag.ErrorMessage = "No es posible eliminar esta plaga porque tiene información asociada (prevenciones o tratamientos). Elimine primero los registros dependientes.";
+                return View(plaga);
+            }
         }
 
         protected override void Dispose(bool disposing)

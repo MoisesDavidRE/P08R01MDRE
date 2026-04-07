@@ -157,6 +157,9 @@
     <Compile Include="Models\Prevencion.cs">
       <DependentUpon>PlagasModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>PlagasModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Tratamiento.cs">
       <DependentUpon>PlagasModel.tt</DependentUpon>
     </Compile>

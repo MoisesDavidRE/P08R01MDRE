@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ControlPlagasDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ControlPlagasDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Plagas">
           <Key>
             <PropertyRef Name="IdPlaga" />
@@ -15,6 +15,7 @@
           <Property Name="Categoria" Type="varchar" MaxLength="50" />
           <Property Name="NivelRiesgo" Type="varchar" MaxLength="50" />
           <Property Name="UrlImage" Type="varchar(max)" />
+          <Property Name="Enfermedades" Type="text" />
         </EntityType>
         <EntityType Name="Prevencion">
           <Key>
@@ -24,6 +25,16 @@
           <Property Name="IdPlaga" Type="int" />
           <Property Name="Titulo" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Descripcion" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Tratamientos">
           <Key>
@@ -35,7 +46,7 @@
           <Property Name="NombreProducto" Type="varchar" MaxLength="100" />
           <Property Name="Instrucciones" Type="text" />
         </EntityType>
-        <Association Name="FK__Prevencio__IdPla__4CA06362">
+        <Association Name="FK__Prevencio__IdPla__5EBF139D">
           <End Role="Plagas" Type="Self.Plagas" Multiplicity="0..1" />
           <End Role="Prevencion" Type="Self.Prevencion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -47,7 +58,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Tratamien__IdPla__4F7CD00D">
+        <Association Name="FK__Tratamien__IdPla__619B8048">
           <End Role="Plagas" Type="Self.Plagas" Multiplicity="0..1" />
           <End Role="Tratamientos" Type="Self.Tratamientos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -62,18 +73,18 @@
         <EntityContainer Name="ControlPlagasDBModelStoreContainer">
           <EntitySet Name="Plagas" EntityType="Self.Plagas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Prevencion" EntityType="Self.Prevencion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tratamientos" EntityType="Self.Tratamientos" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Prevencio__IdPla__4CA06362" Association="Self.FK__Prevencio__IdPla__4CA06362">
+          <AssociationSet Name="FK__Prevencio__IdPla__5EBF139D" Association="Self.FK__Prevencio__IdPla__5EBF139D">
             <End Role="Plagas" EntitySet="Plagas" />
             <End Role="Prevencion" EntitySet="Prevencion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Tratamien__IdPla__4F7CD00D" Association="Self.FK__Tratamien__IdPla__4F7CD00D">
+          <AssociationSet Name="FK__Tratamien__IdPla__619B8048" Association="Self.FK__Tratamien__IdPla__619B8048">
             <End Role="Plagas" EntitySet="Plagas" />
             <End Role="Tratamientos" EntitySet="Tratamientos" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ControlPlagasDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -89,6 +100,7 @@
           <Property Name="UrlImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Prevencions" Relationship="Self.FK__Prevencio__IdPla__4CA06362" FromRole="Plagas" ToRole="Prevencion" />
           <NavigationProperty Name="Tratamientos" Relationship="Self.FK__Tratamien__IdPla__4F7CD00D" FromRole="Plagas" ToRole="Tratamientos" />
+          <Property Name="Enfermedades" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Prevencion">
           <Key>
@@ -147,7 +159,18 @@
             <End Role="Plagas" EntitySet="Plagas" />
             <End Role="Tratamientos" EntitySet="Tratamientos" />
           </AssociationSet>
+          <EntitySet Name="sysdiagrams" EntityType="ControlPlagasDBModel.sysdiagram" />
         </EntityContainer>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -157,6 +180,7 @@
           <EntitySetMapping Name="Plagas">
             <EntityTypeMapping TypeName="ControlPlagasDBModel.Plaga">
               <MappingFragment StoreEntitySet="Plagas">
+                <ScalarProperty Name="Enfermedades" ColumnName="Enfermedades" />
                 <ScalarProperty Name="IdPlaga" ColumnName="IdPlaga" />
                 <ScalarProperty Name="NombreComun" ColumnName="NombreComun" />
                 <ScalarProperty Name="NombreCientifico" ColumnName="NombreCientifico" />
@@ -184,6 +208,17 @@
                 <ScalarProperty Name="Tipo" ColumnName="Tipo" />
                 <ScalarProperty Name="NombreProducto" ColumnName="NombreProducto" />
                 <ScalarProperty Name="Instrucciones" ColumnName="Instrucciones" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ControlPlagasDBModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
